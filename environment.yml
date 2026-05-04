@@ -1,0 +1,29 @@
+name: audio_app
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+
+  # Núcleo científico
+  - numpy>=1.26,<3
+  - scipy>=1.11
+  - matplotlib>=3.8
+
+  # Audio I/O (OGG y FLAC nativos, sin ffmpeg)
+  - conda-forge::soundfile>=0.12
+
+  # Visión (renderizado matplotlib → QLabel)
+  - conda-forge::opencv>=4.8
+
+  # GUI Qt
+  - conda-forge::pyside6>=6.6
+
+  # PyTorch CPU — borrar 'cpuonly' y añadir pytorch-cuda=12.1 para GPU NVIDIA
+  - pytorch::pytorch>=2.1
+  - cpuonly
+
+  - pip:
+      # Compresión neuronal EnCodec (Meta)
+      - encodec>=0.1.1
