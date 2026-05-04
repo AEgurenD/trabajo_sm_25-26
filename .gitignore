@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+## Custom
+
+explicacion_codigo.md
+guia_presentacion.md
+*.pdf
+audio/_output/
