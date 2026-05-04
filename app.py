@@ -303,7 +303,10 @@ class MainWindow(QMainWindow):
     def _on_encode_neural(self):
         res = self.encode_neural(float(self.ui.spinBW.currentText()))
         if res["ok"]:
-            self.ui.lblNeuralRatio.setText(f"Ratio: {res['ratio']}x")
+            self.ui.lblNeuralRatio.setText(
+                f"Ratio: {res['ratio']}x  |  "
+                f"Original: {res['tamanio_original_kb']} KB  →  "
+                f"Códigos: {res['tamanio_codigos_kb']} KB")
         self._set_status(res["mensaje"])
 
     def _on_decode_neural(self):
@@ -641,7 +644,9 @@ class MainWindow(QMainWindow):
             self._neural_codes = codes
             self._neural_bw    = bandwidth
             return {"ok": True,
-                    "ratio"  : round(sz_orig / (sz_cod + 1e-6), 2),
+                    "ratio"               : round(sz_orig / (sz_cod + 1e-6), 2),
+                    "tamanio_original_kb" : round(sz_orig, 2),
+                    "tamanio_codigos_kb"  : round(sz_cod,  2),
                     "mensaje": f"EnCodec {bandwidth} kbps — códigos guardados en {ruta}"}
         except Exception as e:
             return {"ok": False, "ratio": None, "mensaje": str(e)}
@@ -660,8 +665,9 @@ class MainWindow(QMainWindow):
             with torch.no_grad():
                 audio_np = ec.decode([(self._neural_codes, None)]).squeeze().numpy()
 
-            self.audio_data = audio_np.astype(np.float32)
-            self.n_channels = 1 if audio_np.ndim == 1 else audio_np.shape[1]
+            self.audio_data  = audio_np.astype(np.float32)
+            self.n_channels  = 1 if audio_np.ndim == 1 else audio_np.shape[1]
+            self.sample_rate = ec.sample_rate   # 24000 Hz — CRÍTICO para velocidad correcta
             return {"ok": True, "mensaje": "Audio reconstruido con EnCodec."}
         except Exception as e:
             return {"ok": False, "mensaje": str(e)}
