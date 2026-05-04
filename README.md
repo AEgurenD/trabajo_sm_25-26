@@ -12,6 +12,7 @@ Aplicación de escritorio en Python/PySide6 para carga, visualización, filtrado
 - **Análisis de calidad** automático tras cada operación: SNR, THD, rango dinámico
 - **Compresión clásica**: OGG Vorbis (con pérdida), FLAC (sin pérdida) — vía `soundfile`, sin dependencias externas
 - **Compresión neuronal**: EnCodec (Meta) a 1.5 – 24 kbps — requiere `torch` y `encodec`
+- **Cuaderno de caso práctico**: análisis y filtrado paso a paso — requiere `pandas` y `jupyter`
 
 ## Requisitos del sistema
 

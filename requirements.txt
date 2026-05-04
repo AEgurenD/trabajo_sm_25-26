@@ -2,6 +2,7 @@
 numpy>=1.26,<3
 scipy>=1.11
 matplotlib>=3.8
+pandas>=2.0
 
 # ── Audio I/O ──
 # OGG (Vorbis) y FLAC de forma nativa, sin ffmpeg ni dependencias externas
